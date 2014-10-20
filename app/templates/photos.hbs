@@ -2,9 +2,9 @@
   <h1>Shoppy Shoppy Flickr</h1>
   {{#link-to 'cart' class= "cart"}}Cart{{/link-to}}
   <p>
-    <img src=".img">
-    <img src=".img">
-    <img src=".img">
+    {{#each}}
+      <img {{bind-attr src= 'photoURL'}}></img>
+    {{/each}}
   </p>
 </div>
 
