@@ -11,6 +11,7 @@ ShoppingFlickr.Router.map(function(){
   // is the same as the string name (aka url path)
   this.route('cart');
   this.route('photos', { path: '/' });
+  this.resource('photo', {path:'/:title'})
 });
 
 ShoppingFlickr.PhotosRoute = Ember.Route.extend({
@@ -31,5 +32,11 @@ ShoppingFlickr.PhotosRoute = Ember.Route.extend({
         };
       });
     });
+  }
+});
+
+ShoppingFlickr.PhotoRoute = Ember.Route.extend({
+  model: function(params) {
+    // return ShoppingFlicker.Photos.findby('title', params.title)
   }
 });
