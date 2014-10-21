@@ -16,19 +16,18 @@ ShoppingFlickr.Router.map(function(){
 ShoppingFlickr.PhotosRoute = Ember.Route.extend({
   model: function () {
     var url = "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=98a80bf27f25bb1381e9bea26b6282e5&per_page=500&format=json&nojsoncallback=1";
-    // look at steve's code to figure out ajax call & parsing/transforming the data so we return an array of
-    // objects that each have a photoURL property
     return Ember.$.ajax(url)
     .then(function(data) {
       return data.photos.photo.map(function(photo) {
+        var title = photo.title
         var photoURL = 'https://farm' +
           photo.farm + '.staticflickr.com/' +
           photo.server + '/' +
           photo.id + '_' +
           photo.secret + '.jpg';
-
         return {
-          photoURL: photoURL
+          photoURL: photoURL,
+          title: title
         };
       });
     });
