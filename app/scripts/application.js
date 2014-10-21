@@ -11,7 +11,7 @@ ShoppingFlickr.Router.map(function(){
   // is the same as the string name (aka url path)
   this.route('cart');
   this.route('photos', { path: '/' });
-  this.resource('photo', {path:'/:title'})
+  this.route('photo', {path:'/:title'});
 });
 
 ShoppingFlickr.PhotosRoute = Ember.Route.extend({
@@ -27,6 +27,7 @@ ShoppingFlickr.PhotosRoute = Ember.Route.extend({
           photo.id + '_' +
           photo.secret + '.jpg';
         return {
+          id: photo.id,
           photoURL: photoURL,
           title: title
         };
@@ -35,8 +36,31 @@ ShoppingFlickr.PhotosRoute = Ember.Route.extend({
   }
 });
 
-ShoppingFlickr.PhotoRoute = Ember.Route.extend({
-  model: function(params) {
-    // return ShoppingFlicker.Photos.findby('title', params.title)
+ShoppingFlickr.PhotosController = Ember.ArrayController.extend({
+  actions: {
+    addPhotoToCart: function(photo) {
+      // i want to push `photo` to something
+      // i want to push to the cart controller's model
+      var cartController = '????';
+      console.log(cartController); // <- this should log something that may not be intelligible
+      var cartModel = '???';
+      console.log(cartModel); // <- this should log an empty array
+      cartModel.pushObject(photo);
+
+      
+    }
   }
-});
+})
+
+ShoppingFlickr.CartRoute = Ember.Route.extend({
+  model: function() {
+    return []
+  }
+})
+
+
+// ShoppingFlickr.PhotoRoute = Ember.Route.extend({
+//   model: function(params) {
+//      return ShoppingFlicker.Photos.findby('title', params.title)
+//   }
+// });

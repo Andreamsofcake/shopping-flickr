@@ -3,7 +3,7 @@
   {{#link-to 'cart' class= "cart"}}Cart{{/link-to}}
   <p>
     {{#each}}
-      {{title}}
+      {{title}} <button {{action 'addPhotoToCart' this}}> Add to Cart </button>
       <img {{bind-attr src= 'photoURL'}}></img>
     {{/each}}
   </p>
