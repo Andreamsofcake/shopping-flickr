@@ -16,11 +16,11 @@ ShoppingFlickr.Router.map(function(){
 
 ShoppingFlickr.PhotosRoute = Ember.Route.extend({
   model: function () {
-    var url = "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=98a80bf27f25bb1381e9bea26b6282e5&per_page=500&format=json&nojsoncallback=1";
+    var url = 'https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=98a80bf27f25bb1381e9bea26b6282e5&per_page=500&format=json&nojsoncallback=1';
     return Ember.$.ajax(url)
     .then(function(data) {
       return data.photos.photo.map(function(photo) {
-        var title = photo.title
+        var title = photo.title;
         var photoURL = 'https://farm' +
           photo.farm + '.staticflickr.com/' +
           photo.server + '/' +
@@ -37,26 +37,28 @@ ShoppingFlickr.PhotosRoute = Ember.Route.extend({
 });
 
 ShoppingFlickr.PhotosController = Ember.ArrayController.extend({
+  needs: ['cart'],
+  cart: Ember.computed.alias('controllers.cart'),
+
   actions: {
     addPhotoToCart: function(photo) {
-      // i want to push `photo` to something
-      // i want to push to the cart controller's model
-      var cartController = '????';
-      console.log(cartController); // <- this should log something that may not be intelligible
-      var cartModel = '???';
-      console.log(cartModel); // <- this should log an empty array
-      cartModel.pushObject(photo);
-
-      
+      // var cartController = this.get('cart');
+      // cartController.get('model').pushObject(photo);
+      ShoppingFlickr.CART_FIXTURES.pushObject(photo);
     }
   }
-})
+});
 
+ShoppingFlickr.CART_FIXTURES = [];
 ShoppingFlickr.CartRoute = Ember.Route.extend({
   model: function() {
-    return []
+    // console.log('getting model');
+    return ShoppingFlickr.CART_FIXTURES;
   }
-})
+});
+
+ShoppingFlickr.CartController = Ember.ArrayController.extend({
+});
 
 
 // ShoppingFlickr.PhotoRoute = Ember.Route.extend({

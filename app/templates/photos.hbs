@@ -1,11 +1,12 @@
 <div class="content">
   <h1>Shoppy Shoppy Flickr</h1>
   {{#link-to 'cart' class= "cart"}}Cart{{/link-to}}
-  <p>
+  <ul>
     {{#each}}
-      {{title}} <button {{action 'addPhotoToCart' this}}> Add to Cart </button>
+      <li>{{title}} <button {{action 'addPhotoToCart' this}}> Add to Cart </button>
       <img {{bind-attr src= 'photoURL'}}></img>
+      </li>
     {{/each}}
-  </p>
+  </ul>
 </div>
 
